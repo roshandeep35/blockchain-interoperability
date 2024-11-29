@@ -1,0 +1,26 @@
+[Log]
+Level = 'debug'  # More verbose logging for development
+
+[WebServer]
+AllowOrigins = '*'
+SecureCookies = false
+ListenIP = "0.0.0.0"
+
+[WebServer.TLS]
+HTTPSPort = 0
+
+# First EVM Chain Configuration
+[[EVM]]
+ChainID = '1337'
+[[EVM.Nodes]]
+Name = 'LocalChain1'
+WSURL = 'ws://13.233.118.139:8546'
+HTTPURL = 'http://13.233.118.139:8545/'
+
+# Second EVM Chain Configuration
+[[EVM]]
+ChainID = '31337'
+[[EVM.Nodes]]
+Name = 'LocalChain2'
+WSURL = 'ws://65.0.45.100:8546'
+HTTPURL = 'http://65.0.45.100:8545'
