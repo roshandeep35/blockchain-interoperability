@@ -14,13 +14,13 @@ HTTPSPort = 0
 ChainID = '1337'
 [[EVM.Nodes]]
 Name = 'LocalChain1'
-WSURL = 'ws://13.233.118.139:8546'
-HTTPURL = 'http://13.233.118.139:8545/'
+WSURL = 'ws://35.154.214.75:8546'
+HTTPURL = 'http://35.154.214.75:8545/'
 
 # Second EVM Chain Configuration
 [[EVM]]
-ChainID = '31337'
+ChainID = '1336'
 [[EVM.Nodes]]
 Name = 'LocalChain2'
-WSURL = 'ws://65.0.45.100:8546'
-HTTPURL = 'http://65.0.45.100:8545'
+WSURL = 'ws://13.233.122.217:8546'
+HTTPURL = 'http://13.233.122.217:8545'
