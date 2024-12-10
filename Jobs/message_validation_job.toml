@@ -1,0 +1,26 @@
+type = "directrequest"
+schemaVersion = 1
+name = "Message Validation Job"
+externalJobID = "798c07e5-9728-4e1a-84b5-1dbded408aa5"
+forwardingAllowed = false
+maxTaskDuration = "0s"
+contractAddress = "0x613a38AC1659769640aaE063C651F48E0250454C"
+evmChainID = "1337"
+minIncomingConfirmations = 0
+minContractPaymentLinkJuels = "0"
+observationSource = """
+    decode_log [type="ethabidecodelog"
+                abi="MessageValidated(bytes32 messageId, bool isValid, address validator, string reason)"
+                data="$(jobRun.logData)"
+                topics="$(jobRun.logTopics)"]
+
+    encode_data [type="ethabiencode"
+                 abi="validateMessage(bool isValid, string reason)"
+                 data="{\\"isValid\\": $(decode_log.isValid), \\"reason\\": $(decode_log.reason)}"]
+
+    send_tx [type="ethtx"
+             to="$(decode_log.validator)"
+             data="$(encode_data)"]
+
+    decode_log -> encode_data -> send_tx
+"""
