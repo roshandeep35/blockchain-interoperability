@@ -1,0 +1,22 @@
+type = "directrequest"
+schemaVersion = 1
+name = "Message Sending Job"
+evmChainID = 1337
+contractAddress = "0x613a38AC1659769640aaE063C651F48E0250454C"
+
+observationSource = """
+    decode_log [type="ethabidecodelog"
+                abi="MessageSent(bytes32 messageId, uint64 destinationChainSelector, address receiver, string text, address feeToken, uint256 fees, address sender)"
+                data="$(jobRun.logData)"
+                topics="$(jobRun.logTopics)"]
+
+    encode_data [type="ethabiencode"
+                 abi="receiveMessage(string text)"
+                 data="{\\"text\\": $(decode_log.text)}"]
+
+    send_tx [type="ethtx"
+             to="$(decode_log.receiver)"
+             data="$(encode_data)"]
+
+    decode_log -> encode_data -> send_tx
+"""
