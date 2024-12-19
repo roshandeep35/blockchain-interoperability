@@ -1,26 +1,28 @@
 [Log]
-Level = 'debug'  # More verbose logging for development
+Level = 'debug'
 
 [WebServer]
-AllowOrigins = '*'
+AllowOrigins = '\*'
 SecureCookies = false
-ListenIP = "0.0.0.0"
 
 [WebServer.TLS]
 HTTPSPort = 0
 
-# First EVM Chain Configuration
 [[EVM]]
 ChainID = '1337'
-[[EVM.Nodes]]
-Name = 'LocalChain1'
-WSURL = 'ws://35.154.214.75:8546'
-HTTPURL = 'http://35.154.214.75:8545/'
+LinkContractAddress = '0x663F3ad617193148711d28f5334eE4Ed07016602'
 
-# Second EVM Chain Configuration
-[[EVM]]
-ChainID = '1336'
 [[EVM.Nodes]]
-Name = 'LocalChain2'
-WSURL = 'ws://13.233.122.217:8546'
-HTTPURL = 'http://13.233.122.217:8545'
+Name = 'test'
+WSURL = 'ws://13.203.78.29:8546/'
+HTTPURL = 'http://13.203.78.29:8545/'
+
+
+[[EVM]]
+ChainID = '1338'
+LinkContractAddress = '0xA3C7c756fFF8cBD7d6CCbDFC696bC9cA7c58a3a0'
+
+[[EVM.Nodes]]
+Name = 'test2'
+WSURL = 'ws://13.126.115.98:8546'
+HTTPURL = 'http://13.126.115.98:8545/'

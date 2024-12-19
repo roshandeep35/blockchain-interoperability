@@ -2,7 +2,7 @@ type = "directrequest"
 schemaVersion = 1
 name = "Message Sender"
 contractAddress     = ""
-
+evmChainID = ""
 observationSource   = """
     decode_log [type="ethabidecodelog"
                 abi="MessageSent(bytes32 messageId, uint64 destinationChainSelector, address receiver, string text, address feeToken, uint256 fees, address sender)"

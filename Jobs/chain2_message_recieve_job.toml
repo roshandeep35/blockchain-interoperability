@@ -1,0 +1,26 @@
+type                = "directrequest"
+schemaVersion       = 1
+name                = "Message Relay"
+contractAddress     = "<Sender.sol Contract Address>"
+evmChainID          = "<Chain ID of Chain 1>"  # Replace with your actual chain ID
+
+observationSource   = """
+    # Decode the MessageSent event from the log
+    decode_log [type="ethabidecodelog"
+                abi="MessageSent(bytes32 messageId, uint64 destinationChainSelector, address receiver, string text, address feeToken, uint256 fees, address sender)"
+                data="$(jobRun.logData)"
+                topics="$(jobRun.logTopics)"]
+
+    # Encode the transaction data to call the receiveMessage function on the receiver contract
+    encode_tx  [type="ethabiencode"
+                abi="receiveMessage(string)"
+                data="{\\"text\\": $(decode_log.text)}"]
+
+    # Send the transaction to the receiver contract's address
+    send_tx    [type="ethtx"
+                to="$(decode_log.receiver)"
+                data="$(encode_tx)"]
+
+    # Define the execution flow
+    decode_log -> encode_tx -> send_tx
+"""

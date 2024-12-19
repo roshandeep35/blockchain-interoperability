@@ -1,0 +1,29 @@
+type = "directrequest"
+schemaVersion = 1
+name = "Receive Token - Mint on Chain 2"
+externalJobID = "affe0c06-db71-4ccc-b3b6-0154a998d2d0"
+forwardingAllowed = false
+maxTaskDuration = "0s"
+contractAddress = "0x39bEF34a79B8f69b4e587b76eAee412deA30d62f"
+evmChainID = "1338"
+minIncomingConfirmations = 0
+minContractPaymentLinkJuels = "0"
+observationSource = """
+    decode_log   [type="ethabidecodelog"
+                  abi="OracleRequest(bytes32 indexed specId, address requester, bytes32 requestId, uint256 payment, address callbackAddr, bytes4 callbackFunctionId, uint256 cancelExpiration, uint256 dataVersion, bytes data)"
+                  data="$(jobRun.logData)"
+                  topics="$(jobRun.logTopics)"]
+
+    decode_cbor  [type="cborparse" data="$(decode_log.data)"]
+
+    recipient    [type="jsonparse" path="recipient" data="$(decode_cbor)"]
+    amount       [type="jsonparse" path="amount" data="$(decode_cbor)"]
+
+    encode_tx    [type="ethabiencode"
+                  abi="fulfillTokenReceive(bytes32 requestId, address recipient, uint256 amount)"
+                  data="{\\"requestId\\": $(decode_log.requestId), \\"recipient\\": $(recipient), \\"amount\\": $(amount)}"]
+
+    submit_tx    [type="ethtx" to="$(decode_log.callbackAddr)" data="$(encode_tx)"]
+
+    decode_log -> decode_cbor -> recipient -> amount -> encode_tx -> submit_tx
+"""
