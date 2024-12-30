@@ -1,0 +1,36 @@
+type = "directrequest"
+schemaVersion = 1
+name = "Cross-Chain Token Transfer Job"
+externalJobID = "211edec6-33aa-4a3c-87f9-9673e0687995"
+forwardingAllowed = false
+maxTaskDuration = "0s"
+contractAddress = "0x94B75AA39bEC4cB15e7B9593C315aF203B7B847f"
+evmChainID = "1337"
+minIncomingConfirmations = 0
+minContractPaymentLinkJuels = "0"
+observationSource = """
+    decode_log   [type="ethabidecodelog"
+                  abi="OracleRequest(bytes32 indexed specId, address requester, bytes32 requestId, uint256 payment, address callbackAddr, bytes4 callbackFunctionId, uint256 cancelExpiration, uint256 dataVersion, bytes data)"
+                  data="$(jobRun.logData)"
+                  topics="$(jobRun.logTopics)"]
+
+    decode_cbor  [type="cborparse" data="$(decode_log.data)"]
+
+    fetch_data   [type="http"
+                  method="POST"
+                  url="http://host.docker.internal:8000/receive"
+                  requestData="{\\"ChainID\\": $(decode_cbor.destChainId), \\"Receiver\\": $(decode_cbor.receiverAddress), \\"Amount\\": $(decode_cbor.amount)}"
+                  headers="[\\"Authorization\\", \\"Bearer gS+xc4XUsv3CA+iURw0b3H8gEit0VDlk\\"]"]
+
+    encode_data    [type="ethabiencode"
+                  abi="(bytes32 requestId, bytes32 transferId, bool confirmed)"
+                  data="{\\"requestId\\": $(decode_log.requestId), \\"transferId\\": $(decode_cbor.transferId), \\"confirmed\\": true}"]
+
+    encode_tx    [type="ethabiencode"
+                  abi="fulfillOracleRequest2(bytes32 requestId, uint256 payment, address callbackAddress, bytes4 callbackFunctionId, uint256 expiration, bytes calldata data)"
+                  data="{\\"requestId\\": $(decode_log.requestId), \\"payment\\": $(decode_log.payment), \\"callbackAddress\\": $(decode_log.callbackAddr), \\"callbackFunctionId\\": $(decode_log.callbackFunctionId), \\"expiration\\": $(decode_log.cancelExpiration), \\"data\\": $(encode_data)}"]
+
+    submit_tx    [type="ethtx" to="0x94B75AA39bEC4cB15e7B9593C315aF203B7B847f" data="$(encode_tx)"]
+
+    decode_log -> decode_cbor -> fetch_data -> encode_data -> encode_tx -> submit_tx
+"""
