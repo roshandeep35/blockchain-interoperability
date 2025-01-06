@@ -1,3 +1,5 @@
+import '../componentStyles/transferBox.css'
+ 
  const TransferBox = ({ fromChain, setFromChain, fromAccount, setFromAccount, toChain, setToChain, toAccount, setToAccount }) => {
     return (
         <div className="from-to-inputs">
