@@ -1,0 +1,42 @@
+type = "directrequest"
+schemaVersion = 1
+name = "Fetch NFT Metadata - Receiver Job v3"
+externalJobID = "cc36bc20-0fce-4edb-9057-2f377d64b41b"
+forwardingAllowed = false
+maxTaskDuration = "0s"
+contractAddress = "0x9726Fc549AcaA0791d8c170843a031ec1D2f8a68"
+evmChainID = "1338"
+minIncomingConfirmations = 0
+minContractPaymentLinkJuels = "0"
+observationSource = """
+    decode_log   [type="ethabidecodelog"
+                  abi="OracleRequest(bytes32 indexed specId, address requester, bytes32 requestId, uint256 payment, address callbackAddr, bytes4 callbackFunctionId, uint256 cancelExpiration, uint256 dataVersion, bytes data)"
+                  data="$(jobRun.logData)"
+                  topics="$(jobRun.logTopics)"]
+
+    decode_cbor  [type="cborparse" data="$(decode_log.data)"]
+
+    fetch_metadata [type="http"
+                    method=GET
+                    url="$(decode_cbor.get)"
+                    headers="[\\"Authorization\\", \\"Bearer gS+xc4XUsv3CA+iURw0b3H8gEit0VDlk\\"]"
+                    allowUnrestrictedNetworkAccess="true"]
+
+    parse_tokenId   [type="jsonparse" path="tokenId" data="$(fetch_metadata)"]
+    parse_receiver  [type="jsonparse" path="receiver" data="$(fetch_metadata)"]
+    parse_tokenURI  [type="jsonparse" path="tokenURI" data="$(fetch_metadata)"]
+
+    encode_data  [type="ethabiencode"
+                  abi="(bytes32 requestId, uint256 tokenId, address receiver, string tokenURI)"
+                  data="{ \\"requestId\\": $(decode_log.requestId), \\"tokenId\\": $(parse_tokenId), \\"receiver\\": $(parse_receiver), \\"tokenURI\\": $(parse_tokenURI) }"]
+
+    encode_tx    [type="ethabiencode"
+                  abi="fulfillOracleRequest2(bytes32 requestId, uint256 payment, address callbackAddress, bytes4 callbackFunctionId, uint256 expiration, bytes calldata data)"
+                  data="{\\"requestId\\": $(decode_log.requestId), \\"payment\\": $(decode_log.payment), \\"callbackAddress\\": $(decode_log.callbackAddr), \\"callbackFunctionId\\": $(decode_log.callbackFunctionId), \\"expiration\\": $(decode_log.cancelExpiration), \\"data\\": $(encode_data)}"]
+
+    submit_tx    [type="ethtx"
+                  to="0x9726Fc549AcaA0791d8c170843a031ec1D2f8a68"
+                  data="$(encode_tx)"]
+
+    decode_log -> decode_cbor -> fetch_metadata -> parse_tokenId -> parse_receiver -> parse_tokenURI -> encode_data -> encode_tx -> submit_tx
+"""
