@@ -7,82 +7,19 @@ body {
     box-sizing: border-box;
 }
 
-/* Header Styles */
-.header {
-    background-color: #4a90e2;
-    color: #ffffff;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.header .logo {
-    font-size: 24px;
-    font-weight: bold;
-}
-.header nav button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 16px;
-    margin-left: 15px;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 5px;
-}
-.header nav button:hover {
-    background-color: #357ab7;
-}
-.header .hamburger {
-    font-size: 24px;
-}
 
-/* Transfer Page Styles */
 .transfer-page {
+    position: absolute; /* Use absolute positioning */
+    top: 50%; /* Move the box vertically to the middle */
+    left: 50%; /* Move the box horizontally to the middle */
+    transform: translate(-50%, -50%); /* Offset the box by half of its size to ensure it's perfectly centered */
     max-width: 800px;
-    margin: 30px auto;
+    width: 100%; /* Ensure the width is responsive */
     padding: 20px;
     background-color: #ffffff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-}
-
-/* Transfer Type Selector Styles */
-.transfer-type-selector {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-}
-.transfer-type-selector label {
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-}
-.transfer-type-selector input[type="radio"] {
-    margin-right: 8px;
-}
-
-/* From-To Input Styles */
-.from-to-inputs {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-.from, .to {
-    width: 48%;
-}
-.from label, .to label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-.from input, .to input, .from select, .to select {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    position: fixed;
 }
 
 /* Specific Inputs Styles */
@@ -104,14 +41,14 @@ body {
     padding: 12px;
     font-size: 18px;
     color: #ffffff;
-    background-color: #4a90e2;
+    background-color: #006193;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     margin-top: 10px;
 }
 .transfer-page button:hover {
-    background-color: #357ab7;
+    background-color: #034464;
 }
 
 /* Confirmation Popup Styles */
@@ -135,4 +72,56 @@ body {
 }
 .success-message button:hover {
     background-color: #0b3d20;
+}
+
+:focus {
+  outline: 0;
+  border-color: #2260ff;
+  box-shadow: 0 0 0 4px #b5c9fc;
+}
+
+.mydict div {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+  justify-content: center;
+}
+
+.mydict input[type="radio"] {
+  clip: rect(0 0 0 0);
+  clip-path: inset(100%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.mydict input[type="radio"]:checked + span {
+  box-shadow: 0 0 0 0.0625em #0043ed;
+  background-color: #dee7ff;
+  z-index: 1;
+  color: #0043ed;
+}
+
+label span {
+  display: block;
+  cursor: pointer;
+  background-color: #fff;
+  padding: 0.375em 0.75em;
+  position: relative;
+  margin-left: 0.0625em;
+  box-shadow: 0 0 0 0.0625em #b5bfd9;
+  letter-spacing: 0.05em;
+  color: #3e4963;
+  text-align: center;
+  transition: background-color 0.5s ease;
+}
+
+label:first-child span {
+  border-radius: 0.375em 0 0 0.375em;
+}
+
+label:last-child span {
+  border-radius: 0 0.375em 0.375em 0;
 }
