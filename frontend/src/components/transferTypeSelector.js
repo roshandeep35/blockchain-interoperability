@@ -1,3 +1,4 @@
+import '../componentStyles/transferTypeSelector.css'
 export const TransferTypeSelector = ({ selectedType, setSelectedType }) => {
     return (
         <div className="transfer-type-selector">
