@@ -1,5 +1,4 @@
-// import ethers from 'ethers';
-const { ethers } = require('ethers');
+import { ethers } from 'ethers';
 
 const connectWallet = async () => {
   try {

@@ -1,9 +1,9 @@
 import './App.css';
-import TransferPage from './components/transferPage'
+import TransferPage from './components/transferPage';
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <TransferPage></TransferPage>
     </div>
   );
