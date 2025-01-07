@@ -1,6 +1,7 @@
 import {
   getNftSenderContract,
   getMessageSenderContract,
+  getTokenSenderContract,
 } from './contractUtils';
 
 const oracleAddress = '0x2E983A1Ba5e8b38AAAeC4B440B9dDcFBf72E15d1';
@@ -28,7 +29,6 @@ const handleMessageTransfer = async ({ toAccount, message }) => {
     console.log('contract instance not formed');
     return;
   }
-  console.log('after contract instance is formed');
   try {
     const tx = await contract.sendMessage(
       oracleAddress,
@@ -43,8 +43,22 @@ const handleMessageTransfer = async ({ toAccount, message }) => {
   }
 };
 
-const handleTokenTransfer = async ({}) => {
-  const contract = await getMessageSenderContract();
+const handleTokenTransfer = async ({ amount, tokenAddress, toAccount }) => {
+  const contract = await getTokenSenderContract();
+  if (!contract) return;
+  try {
+    const tx = await contract.sendToken(
+      oracleAddress,
+      1338,
+      toAccount,
+      tokenAddress,
+      amount
+    );
+    console.log('After sendToken function is called');
+    await tx.wait();
+  } catch (err) {
+    console.error('Error sending token', err);
+  }
 };
 
-export { handleNftTransfer, handleMessageTransfer };
+export { handleNftTransfer, handleMessageTransfer, handleTokenTransfer };

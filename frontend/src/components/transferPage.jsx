@@ -12,13 +12,14 @@ import Footer from './footer';
 import {
   handleMessageTransfer,
   handleNftTransfer,
+  handleTokenTransfer,
 } from '../utils/transferUtils.js';
 
 const TransferPage = () => {
   const [selectedType, setSelectedType] = useState('message');
-  const [fromChain, setFromChain] = useState('');
+  const [fromChain, setFromChain] = useState('1337');
   const [fromAccount, setFromAccount] = useState('');
-  const [toChain, setToChain] = useState('');
+  const [toChain, setToChain] = useState('1338');
   const [toAccount, setToAccount] = useState('');
   const [message, setMessage] = useState('');
   const [amount, setAmount] = useState('');
@@ -26,10 +27,11 @@ const TransferPage = () => {
   const [tokenId, setTokenId] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [details, setDetails] = useState(null);
 
   const handleTransfer = () => {
     console.log(selectedType);
-    const details = {
+    setDetails({
       type: selectedType,
       fromChain,
       fromAccount,
@@ -38,17 +40,21 @@ const TransferPage = () => {
       ...(selectedType === 'message' && { message }),
       ...(selectedType === 'token' && { amount, tokenAddress }),
       ...(selectedType === 'nft' && { tokenId }),
-    };
-    if (selectedType === 'token') {
+    });
+    console.log(details);
+    setShowPopup(true);
+  };
+
+  const confirmTransfer = () => {
+    if (selectedType === 'nft') {
       handleNftTransfer(details);
     }
     if (selectedType === 'message') {
       handleMessageTransfer(details);
     }
-    setShowPopup(true);
-  };
-
-  const confirmTransfer = () => {
+    if (selectedType === 'token') {
+      handleTokenTransfer(details);
+    }
     setShowPopup(false);
     setShowSuccess(true);
   };
@@ -85,11 +91,12 @@ const TransferPage = () => {
           />
           <button onClick={handleTransfer}>Transfer</button>
         </div>
-        {/* <ConfirmationPopup
+        <ConfirmationPopup
           show={showPopup}
           onClose={() => setShowPopup(false)}
           onConfirm={confirmTransfer}
-        /> */}
+          details={details}
+        />
         <SuccessMessage
           show={showSuccess}
           onClose={() => setShowSuccess(false)}
