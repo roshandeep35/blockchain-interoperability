@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
 
-import { ConfirmationPopup } from './confirmationPopup';
-import  TransferBox from './transferBox'
+import React, { useState } from 'react';
+import { ConfirmationPopup } from './confirmationPopup';  // Assuming you have a separate component for the popup.
+import TransferBox from './transferBox';
 import SpecificInputs from './specificInputs';
 import { TransferTypeSelector } from './transferTypeSelector';
 import SuccessMessage from './successMessage';
 import Header from './header';
-import '../componentStyles/transferPage.css'
+import '../componentStyles/transferPage.css';
 import Footer from './footer';
+import TransferButton from './transferButton';
 
 const TransferPage = () => {
     const [selectedType, setSelectedType] = useState('message');
@@ -33,12 +34,17 @@ const TransferPage = () => {
             ...(selectedType === 'token' && { amount, tokenAddress }),
             ...(selectedType === 'nft' && { nftAddress }),
         };
+        // Set the details here if you want to show them in the popup.
         setShowPopup(true);
     };
 
     const confirmTransfer = () => {
         setShowPopup(false);
         setShowSuccess(true);
+    };
+
+    const cancelTransfer = () => {
+        setShowPopup(false);
     };
 
     return (
@@ -68,14 +74,34 @@ const TransferPage = () => {
                         nftAddress={nftAddress}
                         setNftAddress={setNftAddress}
                     />
-                    <button onClick={handleTransfer}>Transfer</button>
+                    
+                    <TransferButton  onClick={handleTransfer} />
+                    
                 </div>
-                <ConfirmationPopup show={showPopup} onClose={() => setShowPopup(false)} onConfirm={confirmTransfer} />
+                {showPopup && (
+                    <ConfirmationPopup 
+                        show={showPopup} 
+                        onClose={cancelTransfer} 
+                        onConfirm={confirmTransfer}
+                        details={{
+                            selectedType,
+                            fromChain,
+                            fromAccount,
+                            toChain,
+                            toAccount,
+                            message,
+                            amount,
+                            tokenAddress,
+                            nftAddress
+                        }}
+                    />
+                )}
                 <SuccessMessage show={showSuccess} onClose={() => setShowSuccess(false)} />
             </div>
-            <Footer></Footer>
+            <Footer />
         </>
     );
 };
 
 export default TransferPage;
+
