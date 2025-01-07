@@ -1,15 +1,17 @@
-.transfer-type-selector {
+:focus {
+    outline: 0;
+    border-color: #2260ff;
+    box-shadow: 0 0 0 4px #b5c9fc;
+  }
+
+  .transfer-type-selector div {
     display: flex;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
     justify-content: center;
-    gap: 1rem; /* Space between buttons */
-    margin: 1rem 0;
-}
+  }
 
-.transfer-type-selector label {
-    position: relative;
-}
-
-.transfer-type-selector input[type="radio"] {
+  .transfer-type-selector input[type="radio"] {
     clip: rect(0 0 0 0);
     clip-path: inset(100%);
     height: 1px;
@@ -17,28 +19,33 @@
     position: absolute;
     white-space: nowrap;
     width: 1px;
-}
+  }
 
-.transfer-type-selector input[type="radio"]:checked + span {
-    box-shadow: 0 0 0 0.0625em #006193;
+  .transfer-type-selector input[type="radio"]:checked + span {
+    box-shadow: 0 0 0 0.0625em #0043ed;
     background-color: #dee7ff;
-    color: #006193;
-}
+    z-index: 1;
+    color: #0043ed;
+  }
 
-.transfer-type-selector span {
+  label span {
     display: block;
     cursor: pointer;
     background-color: #fff;
-    padding: 0.5em 1.25em; /* Medium size */
-    font-size: 1rem;
-    border-radius: 0.375em;
+    padding: 0.375em 0.75em;
+    position: relative;
+    margin-left: 0.0625em;
     box-shadow: 0 0 0 0.0625em #b5bfd9;
+    letter-spacing: 0.05em;
     color: #3e4963;
     text-align: center;
-    transition: all 0.3s ease;
-}
+    transition: background-color 0.5s ease;
+  }
 
-.transfer-type-selector span:hover {
-    background-color: #f0f4ff;
-    box-shadow: 0 0 0 0.1em #b5c9fc;
-}
+  label:first-child span {
+    border-radius: 0.375em 0 0 0.375em;
+  }
+
+  label:last-child span {
+    border-radius: 0 0.375em 0.375em 0;
+  }
