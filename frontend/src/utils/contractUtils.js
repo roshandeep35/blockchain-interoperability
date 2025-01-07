@@ -1,9 +1,9 @@
 import { ethers } from 'ethers';
-import messageSenderABI from '../utils/messageSender';
-import tokenSenderABI from '../utils/tokenSender';
-import nftSenderABI from '../utils/nftSender';
-import dummyLinkABI from '../utils/dummyLink';
-import dummyNftABI from '../utils/dummyNft';
+import messageSenderABI from '../contracts/messageSender.json';
+import tokenSenderABI from '../contracts/tokenSender.json';
+import nftSenderABI from '../contracts/nftSender.json';
+import dummyLinkABI from '../contracts/dummyLink.json';
+import dummyNftABI from '../contracts/dummyNft.json';
 
 const MESSAGE_SENDER_CONTRACT_ADDRESS =
   '0xBC9129Dc0487fc2E169941C75aABC539f208fb01';

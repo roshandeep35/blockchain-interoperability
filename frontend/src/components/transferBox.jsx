@@ -21,7 +21,9 @@ const TransferBox = ({
           <option value='chain1'>Chain 1</option>
           <option value='chain2'>Chain 2</option>
         </select>
+        <label htmlFor='source-account'> Source Account:</label>
         <input
+          id='source-account'
           type='text'
           placeholder='Source Account'
           value={fromAccount}
@@ -31,10 +33,13 @@ const TransferBox = ({
       <div className='to'>
         <label>To:</label>
         <select value={toChain} onChange={(e) => setToChain(e.target.value)}>
-          <option value='ethereum'>Ethereum</option>
-          <option value='bnb'>BNB Chain</option>
+          <option value='chain1'>Chain 1</option>
+          <option value='chain2'>Chain 2</option>
         </select>
+        <label htmlFor='target-account'>Target Account:</label>
+
         <input
+          id='target-account'
           type='text'
           placeholder='Target Account'
           value={toAccount}
