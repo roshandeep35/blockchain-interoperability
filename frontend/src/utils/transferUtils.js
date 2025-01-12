@@ -6,7 +6,8 @@ import {
 
 const oracleAddress = '0x2E983A1Ba5e8b38AAAeC4B440B9dDcFBf72E15d1';
 
-const handleNftTransfer = async ({ toAccount, tokenId }) => {
+const handleNftTransfer = async (details, setShowSuccess) => {
+  const { toAccount, tokenId } = details;
   const contract = await getNftSenderContract();
   if (!contract) return;
 
@@ -18,12 +19,16 @@ const handleNftTransfer = async ({ toAccount, tokenId }) => {
       tokenId
     );
     await tx.wait();
+    setTimeout(() => {
+      setShowSuccess(true);
+    }, 10000);
   } catch (err) {
     console.error('Error sending nft: ', err);
   }
 };
 
-const handleMessageTransfer = async ({ toAccount, message }) => {
+const handleMessageTransfer = async (details, setShowSuccess) => {
+  const { toAccount, message } = details;
   const contract = await getMessageSenderContract();
   if (!contract) {
     console.log('contract instance not formed');
@@ -36,14 +41,20 @@ const handleMessageTransfer = async ({ toAccount, message }) => {
       toAccount,
       message
     );
-    console.log('After send message function is called');
-    await tx.wait();
+    console.log('After send message function is called', tx);
+
+    const receipt = await tx.wait();
+    console.log(receipt);
+    setTimeout(() => {
+      setShowSuccess(true);
+    }, 10000);
   } catch (err) {
     console.error('Error sending message: ', err);
   }
 };
 
-const handleTokenTransfer = async ({ amount, tokenAddress, toAccount }) => {
+const handleTokenTransfer = async (details, setShowSuccess) => {
+  const { amount, tokenAddress, toAccount } = details;
   const contract = await getTokenSenderContract();
   if (!contract) return;
   try {
@@ -56,6 +67,9 @@ const handleTokenTransfer = async ({ amount, tokenAddress, toAccount }) => {
     );
     console.log('After sendToken function is called');
     await tx.wait();
+    setTimeout(() => {
+      setShowSuccess(true);
+    }, 10000);
   } catch (err) {
     console.error('Error sending token', err);
   }
