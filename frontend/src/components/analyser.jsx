@@ -8,6 +8,10 @@ const ContractAnalyzer = () => {
   const [error, setError] = useState('');
   const [report, setReport] = useState(null);
 
+  useEffect(() => {
+    window.open('/slither', '_blank');
+  }, []);
+
   // Fetch compiler versions on component load
   useEffect(() => {
     const fetchCompilerVersions = async () => {
