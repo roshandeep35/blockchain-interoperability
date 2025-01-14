@@ -35,6 +35,7 @@ const TransferBox = ({
           <option value='0x539'>Chain 1</option>
           <option value='0x53a'>Chain 2</option>
         </select>
+        <span></span>
         <label htmlFor='source-account'> Source Account:</label>
 
         <select
@@ -58,7 +59,7 @@ const TransferBox = ({
           <option value='0x539'>Chain 1</option>
           <option value='0x53a'>Chain 2</option>
         </select>
-
+        <span></span>
         <label htmlFor='target-account'>Target Account:</label>
         <select
           value={toAccount}

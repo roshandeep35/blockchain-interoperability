@@ -4,7 +4,6 @@ import connectWallet from '../utils/connectWallet';
 import { useNavigate } from 'react-router-dom';
 
 const Header = ({ setFromChain, setFromAccount }) => {
-  // const navigate = useNavigate();
   const handleClick = (e) => {
     e.preventDefault();
     window.open('/slither', '_blank', 'noopener,noreferrer');

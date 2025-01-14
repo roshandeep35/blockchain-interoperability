@@ -14,6 +14,7 @@ import {
   handleNftTransfer,
   handleTokenTransfer,
 } from '../utils/transferUtils.js';
+import { Block } from 'ethers';
 
 const TransferPage = () => {
   const [selectedType, setSelectedType] = useState('message');
@@ -89,6 +90,7 @@ const TransferPage = () => {
             accounts={accounts}
             setAccounts={setAccounts}
           />
+          <span style={{ display: 'block', height: '8px' }}> </span>
           <SpecificInputs
             selectedType={selectedType}
             message={message}

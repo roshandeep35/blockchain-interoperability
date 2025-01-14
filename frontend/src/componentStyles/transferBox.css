@@ -1,30 +1,35 @@
 .from-to-inputs {
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem; /* Space between 'From' and 'To' sections */
-    margin: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem; /* Space between 'From' and 'To' sections */
+  margin: 1rem 0;
 }
 
-.from, .to {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem; /* Space between the dropdown and input field */
+.from,
+.to {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Space between the dropdown and input field */
 }
 
-.from label, .to label {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
+.from label,
+.to label {
+  font-weight: bold;
+  margin-bottom: 0.1rem;
 }
 
-.from select, .to select,
-.from input, .to input {
-    padding: 0.5rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 0.375rem;
-    width: 100%;
+.from select,
+.to select,
+.from input,
+.to input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;
+  width: 100%;
 }
 
-.from input, .to input {
-    margin-top: 0.5rem;
+.from input,
+.to input {
+  margin-top: 0.5rem;
 }
