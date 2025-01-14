@@ -32,8 +32,8 @@ const TransferBox = ({
           <option value='0x1'>Ethereum Mainnet</option>
           <option value='0xaa36a7'>Sepolia</option>
           <option value='0xe708'>Linea</option>
-          <option value='0x539'>Chain 1</option>
-          <option value='0x53a'>Chain 2</option>
+          <option value='0x539'>Fil Chain</option>
+          <option value='0x53a'>Finova Chain</option>
         </select>
         <span></span>
         <label htmlFor='source-account'> Source Account:</label>
@@ -56,8 +56,8 @@ const TransferBox = ({
           <option value='0x1'>Ethereum Mainnet</option>
           <option value='0xaa36a7'>Sepolia</option>
           <option value='0xe708'>Linea</option>
-          <option value='0x539'>Chain 1</option>
-          <option value='0x53a'>Chain 2</option>
+          <option value='0x539'>Fil Chain</option>
+          <option value='0x53a'>Finova Chain</option>
         </select>
         <span></span>
         <label htmlFor='target-account'>Target Account:</label>

@@ -20,7 +20,7 @@ const TransferPage = () => {
   const [selectedType, setSelectedType] = useState('message');
   const [fromChain, setFromChain] = useState('');
   const [fromAccount, setFromAccount] = useState('');
-  const [toChain, setToChain] = useState('');
+  const [toChain, setToChain] = useState('0x53a');
   const [toAccount, setToAccount] = useState(
     '0x9761c10068D99D96f6135DC175fF2bFC6B504545'
   );
@@ -33,6 +33,8 @@ const TransferPage = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [details, setDetails] = useState(null);
+
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const [accounts, setAccounts] = useState({});
 
@@ -63,6 +65,10 @@ const TransferPage = () => {
       handleTokenTransfer(details, setShowSuccess);
     }
     setShowPopup(false);
+    setIsDisabled(true);
+    setTimeout(() => {
+      setIsDisabled(false);
+    }, 20000);
   };
 
   const cancelTransfer = () => {
@@ -102,7 +108,7 @@ const TransferPage = () => {
             tokenId={tokenId}
             setTokenId={setTokenId}
           />
-          <TransferButton onClick={handleTransfer} />
+          <TransferButton onClick={handleTransfer} isDisabled={isDisabled} />
         </div>
         {showPopup && (
           <ConfirmationPopup
