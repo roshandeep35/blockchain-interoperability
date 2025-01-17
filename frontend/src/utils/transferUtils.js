@@ -57,13 +57,15 @@ const handleTokenTransfer = async (details, setShowSuccess) => {
   const { amount, tokenAddress, toAccount } = details;
   const contract = await getTokenSenderContract();
   if (!contract) return;
+  console.log(typeof amount);
+  const Amount = (parseFloat(amount) * Math.pow(10, 18)).toString();
   try {
     const tx = await contract.sendToken(
       oracleAddress,
       1338,
       toAccount,
       tokenAddress,
-      amount
+      Amount
     );
     console.log('After sendToken function is called');
     await tx.wait();

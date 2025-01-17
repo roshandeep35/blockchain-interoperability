@@ -10,7 +10,12 @@ const Header = ({ setFromChain, setFromAccount }) => {
   };
   return (
     <header className='header'>
-      <div className='logo'>CrossChainX</div>
+      <div className='logo'>
+        <span>
+          <img src='../../public/f-logo-mobile.png' alt='' />
+        </span>
+        CrossChainX
+      </div>
       <nav className='nav-links'>
         <button className='nav-btn' onClick={handleClick}>
           Contract Analysis

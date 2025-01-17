@@ -43,10 +43,10 @@ const TransferBox = ({
           onChange={(e) => setFromAccount(e.target.value)}
         >
           <option value='0x9761c10068D99D96f6135DC175fF2bFC6B504545'>
-            Account 1
+            Kartikey
           </option>
           <option value='0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC'>
-            Account 2
+            Ritik
           </option>
         </select>
       </div>
@@ -66,10 +66,10 @@ const TransferBox = ({
           onChange={(e) => setToAccount(e.target.value)}
         >
           <option value='0x9761c10068D99D96f6135DC175fF2bFC6B504545'>
-            Account 1
+            Roshandeep
           </option>
           <option value='0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC'>
-            Account 2
+            Ankita
           </option>
         </select>
       </div>
