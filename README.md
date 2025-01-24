@@ -93,11 +93,11 @@ docker run --name cl-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432
 
 ### Step 2: Configure Chainlink Node
 Create the following files in a directory:
-- **config.toml**: Configure the chains and node settings.
+- **config.toml**: Configure the chains and node settings. Modify the following according to the IP of your EC2 instance and Contract Address
   ```toml
   [[EVM]]
   ChainID = '1337'
-  LinkContractAddress = '0x663F3ad617193148711d28f5334eE4Ed07016602'
+  LinkContractAddress = 'LINKContractAddress'
 
   [[EVM.Nodes]]
   Name = 'test'
@@ -106,7 +106,7 @@ Create the following files in a directory:
 
   [[EVM]]
   ChainID = '1338'
-  LinkContractAddress = '0x663F3ad617193148711d28f5334eE4Ed07016602'
+  LinkContractAddress = 'LINKContractAddress'
 
   [[EVM.Nodes]]
   Name = 'test2'
@@ -114,7 +114,7 @@ Create the following files in a directory:
   HTTPURL = 'http://<CHAIN2_IP>:8545/'
   ```
 - **secrets.toml**: Store sensitive information (e.g., API keys).
-- **.api**: Store API credentials for the Chainlink node.
+- **.api**: Store API credentials for the Chainlink node. [available in chainlink-node folder]
 
 ### Step 3: Run Chainlink Node
 Start the Chainlink node:
@@ -122,7 +122,7 @@ Start the Chainlink node:
 docker run --name chainlink -it -p 6688:6688 --add-host=host.docker.internal:host-gateway -v "%cd%:/chainlink" smartcontract/chainlink:2.18.0 node -config /chainlink/config.toml -secrets /chainlink/secrets.toml start -a /chainlink/.api
 ```
 
-Access the Chainlink node dashboard at `http://<NODE_IP>:6688`.
+Access the Chainlink node dashboard at `http://localhost:6688`.
 
 ---
 
